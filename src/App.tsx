@@ -83,10 +83,6 @@ function App() {
               {isAnalyzing ? "Analyzing..." : "Analyze"}
             </button>
           </div>
-          <p className="form-note">
-            Uses a server-side Netlify Function for Google geocoding and Places search. Add
-            `GOOGLE_MAPS_API_KEY` in Netlify environment variables.
-          </p>
           {error && <p className="error-message">{error}</p>}
         </form>
       </section>
