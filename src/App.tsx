@@ -6,18 +6,12 @@ import {
   type AnalysisResult,
   type SignLocation,
 } from "./lib/signPlacement";
-import {
-  findMajorIntersections,
-  geocodeAddress,
-  getGoogleMapsApiKey,
-  loadGoogleMapsApi,
-} from "./lib/googleMaps";
+import { lookupAddressWithGoogle } from "./lib/googleMaps";
 
 const DEFAULT_ADDRESS = "123 Main St, Dallas, TX";
 
 function App() {
   const [address, setAddress] = useState(DEFAULT_ADDRESS);
-  const [maps, setMaps] = useState<typeof google | null>(null);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [selectedSign, setSelectedSign] = useState<SignLocation | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -45,15 +39,8 @@ function App() {
       setSelectedSign(null);
 
       try {
-        const api = await loadGoogleMapsApi(getGoogleMapsApiKey());
-        setMaps(api);
-
-        const propertyLocation = await geocodeAddress(api, trimmedAddress);
-        const majorIntersections = await findMajorIntersections(
-          api,
-          trimmedAddress,
-          propertyLocation,
-        );
+        const { propertyLocation, majorIntersections } =
+          await lookupAddressWithGoogle(trimmedAddress);
         const nextAnalysis = buildSignPlacementAnalysis(
           trimmedAddress,
           propertyLocation,
@@ -97,8 +84,8 @@ function App() {
             </button>
           </div>
           <p className="form-note">
-            Uses Google Maps geocoding and Places search. Add `VITE_GOOGLE_MAPS_API_KEY` in
-            `.env.local` before running locally.
+            Uses a server-side Netlify Function for Google geocoding and Places search. Add
+            `GOOGLE_MAPS_API_KEY` in Netlify environment variables.
           </p>
           {error && <p className="error-message">{error}</p>}
         </form>
@@ -106,7 +93,6 @@ function App() {
 
       <section className="dashboard-grid">
         <SignMap
-          maps={maps}
           analysis={analysis}
           selectedSign={selectedSign}
           onSelectSign={setSelectedSign}

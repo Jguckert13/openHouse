@@ -18,15 +18,15 @@ The current threshold lives in `src/lib/signPlacement.ts`:
 
 ## Setup
 
-Create `.env.local`:
+Create `.env` for local Netlify development, or add this value in Netlify's site
+environment variables:
 
 ```bash
-VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 ```
 
 Enable these Google Maps Platform capabilities for the key:
 
-- Maps JavaScript API
 - Geocoding API
 - Places API
 
@@ -34,7 +34,7 @@ Enable these Google Maps Platform capabilities for the key:
 
 ```bash
 npm install
-npm run dev
+npx netlify dev
 ```
 
 ## Build
