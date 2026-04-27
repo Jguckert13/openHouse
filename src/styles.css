@@ -178,16 +178,18 @@ h2 {
   width: 100%;
   height: 100%;
   min-height: 680px;
-  background:
-    linear-gradient(rgba(184, 107, 8, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(184, 107, 8, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at center, rgba(184, 107, 8, 0.16), transparent 34%),
-    #f8f2e8;
-  background-size:
-    56px 56px,
-    56px 56px,
-    auto,
-    auto;
+  z-index: 1;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  min-height: 680px;
+  font-family: Satoshi, Inter, system-ui, sans-serif;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px;
 }
 
 .map-empty {
@@ -333,6 +335,7 @@ h2 {
 
 .map-info__rule {
   width: fit-content;
+  display: inline-flex;
   border-radius: 999px;
   margin-top: 4px;
   padding: 4px 8px;
@@ -340,6 +343,40 @@ h2 {
   color: #8a4e06;
   font-size: 11px;
   font-weight: 800;
+}
+
+.leaflet-property-marker span {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 4px solid white;
+  border-radius: 50% 50% 50% 0;
+  background: #dc2828;
+  box-shadow: 0 8px 20px rgba(122, 31, 31, 0.32);
+  rotate: -45deg;
+}
+
+.leaflet-sign-marker {
+  background: transparent;
+  border: 0;
+}
+
+.leaflet-sign-marker span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 3px solid white;
+  border-radius: 999px;
+  color: white;
+  font-family: "Cabinet Grotesk", Satoshi, system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  box-shadow: 0 8px 22px rgba(77, 54, 25, 0.24);
+}
+
+.leaflet-sign-marker.is-rule span {
+  border-color: #fbbf24;
 }
 
 .property-dot,
